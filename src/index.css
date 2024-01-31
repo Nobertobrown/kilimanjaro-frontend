@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html {
+        @apply antialiased bg-slate-50 text-gray-800;
+    }
+
+    h1 {
+        @apply text-3xl font-extrabold tracking-tight md:text-5xl;
+    }
+
+    h2 {
+        @apply text-lg font-medium;
+    }
+
+    h3 {
+        @apply font-medium text-sm;
+    }
+
+    h5 {
+        @apply text-xs;
+    }
+
+    p,
+    li {
+        @apply text-sm;
+    }
+
+    button {
+        @apply text-sm;
+    }
+}
+
+@layer utilities {
+
+    /* Hide scrollbar for Chrome, Safari, and Opera */
+    ::-webkit-scrollbar {
+        display: none;
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+}
