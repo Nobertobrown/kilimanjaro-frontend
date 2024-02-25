@@ -4,6 +4,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const reserveAPI = async ({ method, route, params, data }) => {
   const url = `${BASE_URL}${route}`;
+  console.log(method)
   const options = {
     method,
     url,

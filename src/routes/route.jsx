@@ -3,13 +3,13 @@ import { lazy, memo } from "react";
 import { Route, Routes } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/user/Home"));
+const Register = lazy(() => import("../pages/admin/Register"));
+const ManageBuses = lazy(() => import("../pages/admin/ManageBuses"));
 // const Trips = lazy(() => import("../pages/user/Trips"));
 // const Contact = lazy(() => import("../pages/Contact"));
 // const Booking = lazy(() => import("../pages/Booking"));
 // const SignUp = lazy(() => import("../pages/SignUp"));
 // const SignIn = lazy(() => import("../pages/SignIn"));
-// const Register = lazy(() => import("../pages/Register"));
-// const ManageBuses = lazy(() => import("../pages/ManageBuses"));
 // const StripeContainer = lazy(() => import("../components/StripeContainer"));
 
 const pagesData = [
@@ -44,18 +44,18 @@ const pagesData = [
   //   id: 6,
   //   requiresAuth: true,
   // },
-  // {
-  //   path: "/register",
-  //   element: <Register />,
-  //   id: 7,
-  //   requiresAuth: true,
-  // },
-  // {
-  //   path: "/manage-buses",
-  //   element: <ManageBuses />,
-  //   id: 8,
-  //   requiresAuth: true,
-  // },
+  {
+    path: "/register",
+    element: <Register />,
+    id: 7,
+    requiresAuth: true,
+  },
+  {
+    path: "/manage-buses",
+    element: <ManageBuses />,
+    id: 8,
+    requiresAuth: true,
+  },
   // {
   //   path: "/payment",
   //   element: <StripeContainer />,
