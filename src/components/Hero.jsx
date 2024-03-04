@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import DropDown from "./ui/DropDown";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
-import reserveAPI from "../api/api";
 import { Query } from "../services/external-api.service";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -20,15 +19,20 @@ const Hero = () => {
   useEffect(() => {
     const fetchLocations = async () => {
       try {
-        const res = await reserveAPI({ method: "GET", route: "/location" });
+        const args = {
+          key: "getLocations",
+          method: "GET",
+          route: "/location",
+        };
+
+        const res = await queryClient.ensureQueryData(Query(args));
 
         if (res && res.locations) {
           const locations = res.locations.map(({ name }) => ({
-            district: name,
+            value: name,
             label: name,
           }));
           setLocations(locations);
-          //use react query to store the locations data
         }
       } catch (error) {
         console.error("Error fetching locations:", error);
@@ -36,7 +40,7 @@ const Hero = () => {
     };
 
     fetchLocations();
-  }, []);
+  }, [queryClient]);
 
   const searchBus = async (e) => {
     setLoading(true);
@@ -52,16 +56,14 @@ const Hero = () => {
       const args = {
         key: "getRoute",
         method: "GET",
-        route: "/route",
+        route: "/routes",
         params,
       };
 
-      const res =
-        (await queryClient.getQueryData(Query(args).queryKey)) ??
-        (await queryClient.fetchQuery(Query(args)));
+      const res = await queryClient.ensureQueryData(Query(args))
 
       if (res && res.routes) {
-        navigate("/trips");
+        navigate("/trips", {search: params});
       } else {
         console.error("Unexpected response format:", res);
       }
@@ -92,7 +94,7 @@ const Hero = () => {
                 placeholder="Select origin"
                 required
                 onChange={(origin) =>
-                  setOrigin(origin.value.toLocaleLowerCase())
+                  setOrigin(origin?.value.toLocaleLowerCase())
                 }
               />
 
@@ -102,7 +104,7 @@ const Hero = () => {
                 placeholder="Select destination"
                 required
                 onChange={(destination) =>
-                  setDestination(destination.value.toLocaleLowerCase())
+                  setDestination(destination?.value.toLocaleLowerCase())
                 }
               />
 

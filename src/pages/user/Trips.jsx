@@ -1,26 +1,77 @@
-import {useState, useMemo} from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useMemo, useEffect } from "react";
 import Card2 from "../../components/ui/Card2";
 import DropDown from "../../components/ui/DropDown";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Skeleton from "../../components/ui/Skeleton";
-import reserveAPI from "../../api/api";
-import { getTrips } from "../redux/actions/actions";
-import { busAmenities, busCategories } from "../data/data.json";
 import { LuFilter } from "react-icons/lu";
+import { busAmenities, busCategories } from "../../data/data.json";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
+import { Query } from "../../services/external-api.service";
 
 const Trips = () => {
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
-  const [arrivalDate, setArrivalDate] = useState("");
+  const [trips, setTrips] = useState([]);
+  // const [arrivalDate, setArrivalDate] = useState("");
   const [categories, setCategories] = useState([]);
   const [amenities, setAmenities] = useState([]);
+  const [locations, setLocations] = useState([])
   const [loading, setLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const location = useLocation();
 
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state.reducer);
-  const { locations, trips } = selector;
+  useEffect(() => {
+    const fetchTrips = async () => {
+      setLoading(true);
+      try {
+        const args = {
+          key: "getRoute",
+          method: "GET",
+          route: "/routes",
+          params: location.search,
+        };
+        const res = await queryClient.ensureQueryData(Query(args));
+
+        if (res && res.routes) {
+          setTrips(res.routes);
+        } else {
+          console.error("Unexpected response format:", res);
+        }
+      } catch (error) {
+        // toast.error(error.response?.data?.error || "API request failed");
+        console.error("API request failed:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const fetchLocations = async () => {
+      try {
+        const args = {
+          key: "getLocations",
+          method: "GET",
+          route: "/location",
+        };
+
+        const res = await queryClient.ensureQueryData(Query(args));
+
+        if (res && res.locations) {
+          const locations = res.locations.map(({ name }) => ({
+            value: name,
+            label: name,
+          }));
+          setLocations(locations);
+        }
+      } catch (error) {
+        console.error("Error fetching locations:", error);
+      }
+    };
+
+    fetchLocations();
+    fetchTrips();
+  }, [location, queryClient]);
 
   const filterResults = async (e) => {
     setLoading(true);
@@ -44,33 +95,25 @@ const Trips = () => {
     });
 
     try {
-      const res = await reserveAPI({
+      const args = {
         method: "GET",
-        route: "/",
+        route: "/routes",
         params: formValues,
-      });
+      };
 
-      if (res && res.trips) {
-        dispatch(getTrips(res.trips));
-      }
+      const res = await queryClient.ensureQueryData(Query(args));
+      setTrips(res);
     } catch (error) {
       console.error(error);
-      dispatch(getTrips([]));
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDepartureDate = (e) => {
-    const threeDaysLater = new Date(e.target.value);
-    threeDaysLater.setDate(threeDaysLater.getDate() + 4);
-    setArrivalDate(threeDaysLater.toISOString().split("T")[0]);
-  };
-
   const resetFilters = () => {
     setOrigin(null);
     setDestination(null);
-    setArrivalDate("");
+    // setArrivalDate("");
     setCategories([]);
     setAmenities([]);
 
@@ -137,15 +180,7 @@ const Trips = () => {
                 placeholder="Select a date"
                 name="departureDate"
                 label="Departure Date"
-                onChange={handleDepartureDate}
                 min={new Date().toISOString().split("T")[0]}
-              />
-              <Input
-                type="date"
-                placeholder="Select a date"
-                name="arrivalDate"
-                label="Arrival Date"
-                min={arrivalDate}
               />
               <DropDown
                 options={busCategories}
@@ -185,16 +220,16 @@ const Trips = () => {
                 <Card2
                   key={trip._id}
                   id={trip._id}
-                  busName={trip.busName}
+                  busName={trip.bus.name}
                   origin={trip.origin}
                   destination={trip.destination}
                   amenities={trip.amenities}
                   categories={trip.categories}
-                  fare={trip.fare}
-                  arrivalDate={trip.arrivalDate}
-                  departureDate={trip.departureDate}
-                  departureTime={trip.departureTime}
-                  arrivalTime={trip.arrivalTime}
+                  fare={trip.cost}
+                  // arrivalDate={trip.arrivalDate}
+                  departureDate={trip.date}
+                  departureTime={trip.time}
+                  // arrivalTime={trip.arrivalTime}
                 />
               ))
             )

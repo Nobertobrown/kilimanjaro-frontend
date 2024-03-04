@@ -1,12 +1,14 @@
 import { lazy, memo } from "react";
 // import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import RegisterRoute from "../pages/admin/RegisterRoute";
 
 const Home = lazy(() => import("../pages/user/Home"));
-const Register = lazy(() => import("../pages/admin/Register"));
+const RegisterBus = lazy(() => import("../pages/admin/RegisterBus"));
 const ManageBuses = lazy(() => import("../pages/admin/ManageBuses"));
-// const Trips = lazy(() => import("../pages/user/Trips"));
-// const Contact = lazy(() => import("../pages/Contact"));
+const ManageRoutes = lazy(() => import("../pages/admin/ManageRoutes"));
+const Trips = lazy(() => import("../pages/user/Trips"));
+const Contact = lazy(() => import("../pages/user/Contact"));
 // const Booking = lazy(() => import("../pages/Booking"));
 // const SignUp = lazy(() => import("../pages/SignUp"));
 // const SignIn = lazy(() => import("../pages/SignIn"));
@@ -18,16 +20,11 @@ const pagesData = [
     element: <Home />,
     id: 1,
   },
-  // {
-  //   path: "/trips",
-  //   element: <Trips />,
-  //   id: 5,
-  // },
-  // {
-  //   path: "/contact",
-  //   element: <Contact />,
-  //   id: 2,
-  // },
+  {
+    path: "/contact",
+    element: <Contact />,
+    id: 2,
+  },
   // {
   //   path: "/sign-up",
   //   element: <SignUp />,
@@ -38,6 +35,11 @@ const pagesData = [
   //   element: <SignIn />,
   //   id: 4,
   // },
+  {
+    path: "/trips",
+    element: <Trips />,
+    id: 5,
+  },
   // {
   //   path: "/bookings",
   //   element: <Booking />,
@@ -45,8 +47,8 @@ const pagesData = [
   //   requiresAuth: true,
   // },
   {
-    path: "/register",
-    element: <Register />,
+    path: "/register-bus",
+    element: <RegisterBus />,
     id: 7,
     requiresAuth: true,
   },
@@ -56,10 +58,22 @@ const pagesData = [
     id: 8,
     requiresAuth: true,
   },
+  {
+    path: "/:busId/register-route",
+    element: <RegisterRoute />,
+    id: 9,
+    requiresAuth: true,
+  },
+  {
+    path: "/:bus/manage-routes",
+    element: <ManageRoutes />,
+    id: 10,
+    requiresAuth: true,
+  },
   // {
   //   path: "/payment",
   //   element: <StripeContainer />,
-  //   id: 9,
+  //   id: 11,
   //   requiresAuth: true,
   // },
 ];

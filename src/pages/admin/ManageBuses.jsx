@@ -18,9 +18,7 @@ const ManageBuses = () => {
           route: "/buses",
         };
 
-        const res =
-          (queryClient.getQueryData(Query(args).queryKey)) ??
-          (await queryClient.fetchQuery(Query(args)));
+        const res = await queryClient.ensureQueryData(Query(args))
 
         if (res && res.buses) {
           setBusList(res.buses);
@@ -34,17 +32,17 @@ const ManageBuses = () => {
   }, [queryClient]);
 
   return (
-    <article>
+    <article className="py-4">
       {busList.length < 1 ? (
         <div className="flex items-center min-h-[70vh] text-center justify-center">
           <div className="space-y-4">
             <h1>No buses found!</h1>
             <p>
-              It looks like you haven&rsquo;t added any buses yet. Start
-              managing your buses to view them here.
+              It looks like you haven&rsquo;t added any buses yet. Register
+              new buses to view them here.
             </p>
             <div>
-              <Link to={"/register"}>
+              <Link to={"/register-bus"}>
                 <Button
                   text="Register Your Bus"
                   className="max-w-max mx-auto"
@@ -67,6 +65,8 @@ const ManageBuses = () => {
             {busList.map((bus) => (
               <Card3
                 key={bus._id}
+                busId={bus._id}
+                busName={bus.name}
                 busNumber={bus.plateNo}
                 seats={bus.seats}
                 type = {bus.type}

@@ -4,7 +4,7 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const reserveAPI = async ({ method, route, params, data }) => {
   const url = `${BASE_URL}${route}`;
-  console.log(method)
+  // console.log(url)
   const options = {
     method,
     url,
@@ -16,7 +16,7 @@ const reserveAPI = async ({ method, route, params, data }) => {
   };
 
   const res = await axios(options);
-  console.log(res.data);
+  // console.log(res.data);
   return res.data;
 };
 export default reserveAPI;

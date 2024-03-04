@@ -67,7 +67,7 @@ const typeOptions = [
   },
 ];
 
-const Register = () => {
+const RegisterBus = () => {
   const [amenities, setAmenities] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -184,4 +184,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterBus;

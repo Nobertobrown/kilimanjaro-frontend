@@ -83,7 +83,7 @@ const Footer = () => {
         </section>
 
         <section className="pt-4 flex flex-col sm:flex-row gap-2 items-center justify-between">
-          <p>&copy; {currentYear} Reserve™. All Rights Reserved.</p>
+          <p>&copy; {currentYear} Kilimanjaro Express™. All Rights Reserved.</p>
           <nav>
             <ul className="flex items-center gap-4">
               {social.map(({ name, href, icon }) => (
