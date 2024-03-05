@@ -3,69 +3,13 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import DropDown from "../../components/ui/DropDown";
 import reserveAPI from "../../api/api";
+import {
+  busCategories as categoryOptions,
+  busAmenities as amenityOptions,
+  typeOptions,
+} from "../../data/data.json";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
-const amenityOptions = [
-  {
-    value: "water bottle",
-    label: "Water Bottle",
-  },
-  {
-    value: "bites",
-    label: "Bites",
-  },
-  {
-    value: "blackets",
-    label: "Blankets",
-  },
-  {
-    value: "charging point",
-    label: "Charging Point",
-  },
-  {
-    value: "movie",
-    label: "Movie",
-  },
-  {
-    value: "toilet",
-    label: "Toilet",
-  },
-  {
-    value: "ac",
-    label: "AC",
-  },
-  {
-    value: "emergency contact number",
-    label: "Emergency Contact Number",
-  },
-];
-
-const categoryOptions = [
-  {
-    value: "seater",
-    label: "Seater",
-  },
-  {
-    value: "sleeper",
-    label: "Sleeper",
-  },
-];
-
-const typeOptions = [
-  {
-    value: "luxury",
-    label: "Luxury",
-  },
-  {
-    value: "semi-luxury",
-    label: "Semi-luxury",
-  },
-  {
-    value: "ordinary",
-    label: "Ordinary",
-  },
-];
 
 const RegisterBus = () => {
   const [amenities, setAmenities] = React.useState([]);

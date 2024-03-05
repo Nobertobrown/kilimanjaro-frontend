@@ -63,7 +63,7 @@ const Hero = () => {
       const res = await queryClient.ensureQueryData(Query(args))
 
       if (res && res.routes) {
-        navigate("/trips", {search: params});
+        navigate("/trips", {state: params});
       } else {
         console.error("Unexpected response format:", res);
       }

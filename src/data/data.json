@@ -71,6 +71,10 @@
       "label": "Water Bottle"
     },
     {
+      "value": "bites",
+      "label": "Bites"
+    },
+    {
       "value": "blackets",
       "label": "Blankets"
     },
@@ -87,15 +91,15 @@
       "label": "Toilet"
     },
     {
+      "value": "ac",
+      "label": "AC"
+    },
+    {
       "value": "emergency contact number",
       "label": "Emergency Contact Number"
     }
   ],
   "busCategories": [
-    {
-      "value": "ac",
-      "label": "AC"
-    },
     {
       "value": "seater",
       "label": "Seater"
@@ -103,10 +107,20 @@
     {
       "value": "sleeper",
       "label": "Sleeper"
+    }
+  ],
+  "typeOptions": [
+    {
+      "value": "luxury",
+      "label": "Luxury"
     },
     {
-      "value": "non ac",
-      "label": "Non AC"
+      "value": "semi-luxury",
+      "label": "Semi-luxury"
+    },
+    {
+      "value": "ordinary",
+      "label": "Ordinary"
     }
   ]
 }

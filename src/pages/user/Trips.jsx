@@ -30,7 +30,7 @@ const Trips = () => {
           key: "getRoute",
           method: "GET",
           route: "/routes",
-          params: location.search,
+          params: location.state,
         };
         const res = await queryClient.ensureQueryData(Query(args));
 
@@ -100,9 +100,9 @@ const Trips = () => {
         route: "/routes",
         params: formValues,
       };
-
+      //TODO: Add toast to show when the routes aren't found
       const res = await queryClient.ensureQueryData(Query(args));
-      setTrips(res);
+      setTrips(res.routes);
     } catch (error) {
       console.error(error);
     } finally {
@@ -178,7 +178,7 @@ const Trips = () => {
               <Input
                 type="date"
                 placeholder="Select a date"
-                name="departureDate"
+                name="date"
                 label="Departure Date"
                 min={new Date().toISOString().split("T")[0]}
               />
@@ -223,8 +223,8 @@ const Trips = () => {
                   busName={trip.bus.name}
                   origin={trip.origin}
                   destination={trip.destination}
-                  amenities={trip.amenities}
-                  categories={trip.categories}
+                  amenities={trip.bus.amenities}
+                  categories={trip.bus.categories}
                   fare={trip.cost}
                   // arrivalDate={trip.arrivalDate}
                   departureDate={trip.date}
