@@ -50,7 +50,7 @@ const Hero = () => {
       const params = {
         origin,
         destination,
-        date: e.target[2].value,
+        departureDate: e.target[2].value,
       };
 
       const args = {
@@ -111,7 +111,7 @@ const Hero = () => {
               <Input
                 type="date"
                 placeholder="Select a date"
-                name="date"
+                name="departureDate"
                 label="Departure Date"
                 required
                 min={new Date().toISOString().split("T")[0]}

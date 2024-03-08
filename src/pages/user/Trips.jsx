@@ -14,7 +14,6 @@ const Trips = () => {
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [trips, setTrips] = useState([]);
-  // const [arrivalDate, setArrivalDate] = useState("");
   const [categories, setCategories] = useState([]);
   const [amenities, setAmenities] = useState([]);
   const [locations, setLocations] = useState([])
@@ -113,7 +112,6 @@ const Trips = () => {
   const resetFilters = () => {
     setOrigin(null);
     setDestination(null);
-    // setArrivalDate("");
     setCategories([]);
     setAmenities([]);
 
@@ -178,7 +176,7 @@ const Trips = () => {
               <Input
                 type="date"
                 placeholder="Select a date"
-                name="date"
+                name="departureDate"
                 label="Departure Date"
                 min={new Date().toISOString().split("T")[0]}
               />
@@ -220,16 +218,16 @@ const Trips = () => {
                 <Card2
                   key={trip._id}
                   id={trip._id}
-                  busName={trip.bus.name}
+                  tripName={trip.name}
                   origin={trip.origin}
                   destination={trip.destination}
                   amenities={trip.bus.amenities}
                   categories={trip.bus.categories}
                   fare={trip.cost}
-                  // arrivalDate={trip.arrivalDate}
-                  departureDate={trip.date}
-                  departureTime={trip.time}
-                  // arrivalTime={trip.arrivalTime}
+                  arrivalDate={trip.arrivalDate}
+                  departureDate={trip.departureDate}
+                  arrivalTime={trip.arrivalTime}
+                  departureTime={trip.departureTime}
                 />
               ))
             )

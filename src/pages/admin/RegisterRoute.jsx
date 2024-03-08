@@ -113,27 +113,34 @@ const RegisterRoute = () => {
 
             <Input
               type="date"
-              name="date"
+              name="departureDate"
               label="Departure Date"
               required
               placeholder="Departure date"
               min={new Date().toISOString().split("T")[0]}
             />
+            <Input
+              type="date"
+              name="arrivalDate"
+              label="Arrival Date"
+              required
+              placeholder="Arrival Date"
+              min={new Date().toISOString().split("T")[0]}
+            />
 
             <Input
               type="time"
-              name="time"
+              name="departureTime"
               label="Departure Time"
               required
               placeholder="Departure time"
             />
-            {/* TODO: Implement a time selection for duration */}
             <Input
               type="time"
-              name="duration"
-              label="Duration"
+              name="arrivalTime"
+              label="Arrival Time"
               required
-              placeholder="Travel time"
+              placeholder="Arrival time"
             />
 
             <Input

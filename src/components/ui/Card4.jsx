@@ -4,12 +4,17 @@ const Card4 = (props) => {
     origin,
     destination,
     departureDate,
-    duration,
+    arrivalDate,
     departureTime,
+    arrivalTime,
     cost,
   } = props;
 
   const departureT = new Date(departureTime).toLocaleTimeString("en-US", {
+    timeStyle: "short",
+  });
+
+  const arrivalT = new Date(arrivalTime).toLocaleTimeString("en-US", {
     timeStyle: "short",
   });
 
@@ -38,10 +43,15 @@ const Card4 = (props) => {
         </div>
 
         <div className="flex items-center gap-2 capitalize">
-          <h3>Duration:</h3>
-          <p>{duration}</p>
+          <h3>Arrival Date:</h3>
+          <p>{arrivalDate.split("T")[0]}</p>
         </div>
 
+        <div className="flex items-center gap-2 capitalize">
+          <h3>Arrival Time:</h3>
+          <p>{arrivalT}</p>
+        </div>
+      
         <div className="flex items-center gap-2 capitalize">
           <h3>Cost:</h3>
           <p>{cost}/=</p>

@@ -45,7 +45,7 @@ const ManageRoutes = () => {
           <div className="space-y-4">
             <h1>No routes found!</h1>
             <p>
-              It looks like you haven&rsquo;t added any routes for the bus yet.
+              It looks like you haven&rsquo;t added any routes for this bus yet.
               Register new routes to view them here.
             </p>
             <div>
@@ -72,9 +72,10 @@ const ManageRoutes = () => {
                 routeName={route.name}
                 origin={route.origin}
                 destination={route.destination}
-                departureDate={route.date}
-                duration={route.duration}
-                departureTime={route.time}
+                departureDate={route.departureDate}
+                arrivalDate={route.arrivalDate}
+                departureTime={route.departureTime}
+                arrivalTime={route.arrivalTime}
                 cost={route.cost}
               />
             ))}
