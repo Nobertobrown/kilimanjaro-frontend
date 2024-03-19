@@ -12,7 +12,7 @@ const Contact = lazy(() => import("../pages/user/Contact"));
 // const Booking = lazy(() => import("../pages/Booking"));
 // const SignUp = lazy(() => import("../pages/SignUp"));
 // const SignIn = lazy(() => import("../pages/SignIn"));
-// const StripeContainer = lazy(() => import("../components/StripeContainer"));
+const Payment = lazy(() => import("../pages/user/Payment"));
 
 const pagesData = [
   {
@@ -70,12 +70,12 @@ const pagesData = [
     id: 10,
     requiresAuth: true,
   },
-  // {
-  //   path: "/payment",
-  //   element: <StripeContainer />,
-  //   id: 11,
-  //   requiresAuth: true,
-  // },
+  {
+    path: "/payment",
+    element: <Payment />,
+    id: 11,
+    requiresAuth: true,
+  },
 ];
 
 const PrivateRoute = memo(({ element }) => {

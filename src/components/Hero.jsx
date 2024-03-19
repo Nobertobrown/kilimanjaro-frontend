@@ -6,6 +6,7 @@ import { Query } from "../services/external-api.service";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { locations as locs } from "../data/data.json";
 
 const Hero = () => {
   const [locations, setLocations] = useState([]);
@@ -17,30 +18,12 @@ const Hero = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchLocations = async () => {
-      try {
-        const args = {
-          key: "getLocations",
-          method: "GET",
-          route: "/location",
-        };
-
-        const res = await queryClient.ensureQueryData(Query(args));
-
-        if (res && res.locations) {
-          const locations = res.locations.map(({ name }) => ({
-            value: name,
-            label: name,
-          }));
-          setLocations(locations);
-        }
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
-
-    fetchLocations();
-  }, [queryClient]);
+    const locations = locs.map(({ name }) => ({
+      value: name,
+      label: name,
+    }));
+    setLocations(locations);
+  }, []);
 
   const searchBus = async (e) => {
     setLoading(true);
@@ -60,10 +43,10 @@ const Hero = () => {
         params,
       };
 
-      const res = await queryClient.ensureQueryData(Query(args))
+      const res = await queryClient.ensureQueryData(Query(args));
 
       if (res && res.routes) {
-        navigate("/trips", {state: params});
+        navigate("/trips", { state: params });
       } else {
         console.error("Unexpected response format:", res);
       }

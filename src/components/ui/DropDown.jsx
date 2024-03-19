@@ -1,11 +1,11 @@
 import Select from "react-select";
 
 const DropDown = (props) => {
-  const { label, htmlFor, ...restProps } = props;
+  const { label, ...restProps } = props;
 
   return (
     <div>
-      <label htmlFor={htmlFor} className="mb-1 text-sm font-medium">
+      <label className="mb-1 text-sm font-medium">
         {label}
       </label>
       <Select

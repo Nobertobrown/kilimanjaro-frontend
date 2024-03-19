@@ -18,6 +18,7 @@ const Input = (props) => {
         <input
           {...restProps}
           name={name}
+          id={name}
           type={type ? type : "text"}
           className={twMerge(
             `text-sm pr-4 rounded-md w-full py-2.5 focus:outline-none border border-gray-300 focus:border-blue-400 ${

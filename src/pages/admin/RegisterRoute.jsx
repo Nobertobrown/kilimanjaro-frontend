@@ -5,41 +5,25 @@ import DropDown from "../../components/ui/DropDown";
 import reserveAPI from "../../api/api";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
-import { Query } from "../../services/external-api.service";
+import { locations as locs } from "../../data/data.json";
 
 const RegisterRoute = () => {
   const [locations, setLocations] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
   const { busId } = useParams();
   const navigate = useNavigate();
-  const queryClient = useQueryClient()
 
   React.useEffect(() => {
     const fetchLocations = async () => {
-      try {
-        const args = {
-          key: "getLocations",
-          method: "GET",
-          route: "/location",
-        };
-
-        const res = await queryClient.ensureQueryData(Query(args))
-
-        if (res && res.locations) {
-          const locations = res.locations.map(({ name }) => ({
-            value: name,
-            label: name,
-          }));
-          setLocations(locations);
-        }
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
+      const locations = locs.map(({ name }) => ({
+        value: name,
+        label: name,
+      }));
+      setLocations(locations);
     };
 
     fetchLocations();
-  }, [queryClient]);
+  }, []);
 
   const register = async (e) => {
     setLoading(true);

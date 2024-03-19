@@ -109,8 +109,10 @@ const RegisterBus = () => {
             <DropDown
               options={(() => {
                 const result = [];
-                for (let i = 1; i <= 100; i++) {
-                  result.push({ value: i, label: i.toString() });
+                for (let i = 13; i <= 100; i++) {
+                  if (i % 4 == 1) {
+                    result.push({ value: i, label: i.toString() });
+                  }
                 }
                 return result;
               })()}

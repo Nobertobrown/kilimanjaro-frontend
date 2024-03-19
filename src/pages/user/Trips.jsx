@@ -5,7 +5,7 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Skeleton from "../../components/ui/Skeleton";
 import { LuFilter } from "react-icons/lu";
-import { busAmenities, busCategories } from "../../data/data.json";
+import { busAmenities, busCategories, locations as locs } from "../../data/data.json";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { Query } from "../../services/external-api.service";
@@ -16,7 +16,7 @@ const Trips = () => {
   const [trips, setTrips] = useState([]);
   const [categories, setCategories] = useState([]);
   const [amenities, setAmenities] = useState([]);
-  const [locations, setLocations] = useState([])
+  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
   const queryClient = useQueryClient();
   const location = useLocation();
@@ -45,32 +45,13 @@ const Trips = () => {
         setLoading(false);
       }
     };
-
-    const fetchLocations = async () => {
-      try {
-        const args = {
-          key: "getLocations",
-          method: "GET",
-          route: "/location",
-        };
-
-        const res = await queryClient.ensureQueryData(Query(args));
-
-        if (res && res.locations) {
-          const locations = res.locations.map(({ name }) => ({
-            value: name,
-            label: name,
-          }));
-          setLocations(locations);
-        }
-      } catch (error) {
-        console.error("Error fetching locations:", error);
-      }
-    };
-
-    fetchLocations();
+    const locations = locs.map(({ name }) => ({
+      value: name,
+      label: name,
+    }));
+    setLocations(locations);
     fetchTrips();
-  }, [location, queryClient]);
+  }, [location.state, queryClient]);
 
   const filterResults = async (e) => {
     setLoading(true);
@@ -228,6 +209,7 @@ const Trips = () => {
                   departureDate={trip.departureDate}
                   arrivalTime={trip.arrivalTime}
                   departureTime={trip.departureTime}
+                  noOfSeats={trip.bus.seats}
                 />
               ))
             )
