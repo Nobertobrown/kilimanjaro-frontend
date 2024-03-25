@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const Seat = (props) => {
-  const { label, seat, onClick, ...restProps } = props;
+  const { label, seat, onClick } = props;
   const [source, setSource] = useState("images/car-seat-b-available.png");
 
   useEffect(() => {
@@ -22,14 +22,7 @@ const Seat = (props) => {
   };
 
   return (
-    <div className="flex flex-col items-center shrink-0">
-      <input
-        type="checkbox"
-        checked={seat.isSelected}
-        onChange={() => {}} // No need for onChange here
-        className="hidden"
-        {...restProps}
-      />
+    <div className="flex flex-col items-center">
       <img src={source} className="h-12" onClick={handleClick} />
       <div className="text-xs font-medium">{label}</div>
     </div>

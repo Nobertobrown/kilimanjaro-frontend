@@ -140,6 +140,7 @@ const Card2 = (props) => {
               {fare}/=
             </h2>
             <Button text="View Seat" onClick={() => handleViewSeats(id)} />
+            {/* TODO: Show the number of available seats */}
             <p className="text-xs mt-1 text-blue-500">all taxes included*</p>
           </aside>
         )}

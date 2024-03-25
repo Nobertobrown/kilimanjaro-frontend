@@ -1,4 +1,5 @@
 import { Link} from "react-router-dom";
+import { FaBars } from "react-icons/fa6";
 import Logo from "./Logo";
 
 const pages = [
@@ -23,7 +24,8 @@ const Navbar = () => {
         <div>
           <Logo />
         </div>
-        <div className="flex items-center gap-4">
+        <FaBars className="sm:hidden" />
+        <div className="hidden sm:flex items-center gap-4">
           <nav>
             <ul className="flex items-center gap-3 ">
               {pages.map(({ page, path }) => (

@@ -31,6 +31,10 @@
     button {
         @apply text-sm;
     }
+
+    body{
+        @apply min-w-80;
+    }
 }
 
 @layer utilities {

@@ -27,19 +27,9 @@ const SeatLayout = (props) => {
     setLoading(true);
     e.preventDefault();
 
-    const formValues = {};
-    const formData = new FormData(e.target);
-
-    formData.forEach((value) => {
-      if (value !== "") {
-        if (!formValues["seats"]) {
-          formValues["seats"] = [];
-        }
-        formValues["seats"].push(value);
-      }
-    });
-
+    const formValues = { seats: selectedSeats }; //[...selectedSeatStrings]
     const bookingData = { ...props, ...formValues };
+    console.log(formValues);
     navigate("/payment", { state: bookingData });
     setLoading(false);
   };
@@ -121,18 +111,16 @@ const SeatLayout = (props) => {
         </div>
       </div>
       <form id="selectSeats" onSubmit={selectSeats} className="space-y-4">
-        <div className="flex gap-10">
-          <div className="border p-3 rounded-t-xl">
-            <aside className="flex gap-1 border px-2 py-2">
+        <div className="flex flex-col min-[498px]:flex-row gap-10">
+          <div className="border w-[280px] p-3 rounded-t-xl">
+            <img src="images/steering-wheel.png" className="h-11 ml-auto mb-3" />
+            <aside className="flex w-64 gap-1 border px-2 py-2">
               {Object.entries(seatStates).map(([section, seats]) => (
                 <div key={section} className="flex flex-col gap-1 self-end">
                   {seats.map((seat, index) => (
                     <Seat
                       key={seat.seatNo}
-                      id={seat.seatNo}
-                      value={seat.seatNo}
                       label={seat.seatNo}
-                      name={seat.seatNo}
                       seat={seat}
                       onClick={() => onSelect(section, index)}
                     />
