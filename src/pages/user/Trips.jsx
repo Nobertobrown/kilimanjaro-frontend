@@ -199,6 +199,7 @@ const Trips = () => {
                 <Card2
                   key={trip._id}
                   id={trip._id}
+                  seatInfos={trip.seatInfos}
                   tripName={trip.name}
                   origin={trip.origin}
                   destination={trip.destination}

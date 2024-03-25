@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <h2>
       <Link to={"/"} className="text-blue-500">
-        Kilimanjaro-Express
+        Kilimanjaro Express
       </Link>
     </h2>
   );

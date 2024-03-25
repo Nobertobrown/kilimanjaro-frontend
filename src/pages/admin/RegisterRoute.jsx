@@ -10,6 +10,7 @@ import { locations as locs } from "../../data/data.json";
 const RegisterRoute = () => {
   const [locations, setLocations] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [arrivalDate, setArrivalDate] = React.useState("");
   const { busId } = useParams();
   const navigate = useNavigate();
 
@@ -54,6 +55,11 @@ const RegisterRoute = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDepartureDate = (e) => {
+    const minArrivalDate = new Date(e.target.value);
+    setArrivalDate(minArrivalDate.toISOString().split("T")[0]);
   };
 
   return (
@@ -101,6 +107,7 @@ const RegisterRoute = () => {
               label="Departure Date"
               required
               placeholder="Departure date"
+              onChange={handleDepartureDate}
               min={new Date().toISOString().split("T")[0]}
             />
             <Input
@@ -109,7 +116,7 @@ const RegisterRoute = () => {
               label="Arrival Date"
               required
               placeholder="Arrival Date"
-              min={new Date().toISOString().split("T")[0]}
+              min={arrivalDate}
             />
 
             <Input

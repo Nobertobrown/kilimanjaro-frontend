@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { seats } from "../data/data.json";
 import Button from "./ui/Button";
 import Seat from "./ui/Seat";
@@ -6,7 +6,22 @@ import { useNavigate } from "react-router-dom";
 
 const SeatLayout = (props) => {
   const [loading, setLoading] = useState(false);
+  const [seatStates, setSeatStates] = useState({ ...props.seatInfos });
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [totalFare, setTotalFare] = useState(0);
   const navigate = useNavigate();
+
+  // Calculate total fare whenever selected seats change
+  useEffect(() => {
+    let total = 0;
+    selectedSeats.forEach((selectedSeat) => {
+      const section = Object.keys(selectedSeat)[0];
+      const seatNo = selectedSeat[section];
+      const seat = seatStates[section].find((seat) => seat.seatNo === seatNo);
+      total += parseInt(seat.price);
+    });
+    setTotalFare(total);
+  }, [selectedSeats, seatStates]);
 
   const selectSeats = (e) => {
     setLoading(true);
@@ -25,12 +40,57 @@ const SeatLayout = (props) => {
     });
 
     const bookingData = { ...props, ...formValues };
-    console.log(bookingData)
     navigate("/payment", { state: bookingData });
     setLoading(false);
   };
 
+  const onSelect = (section, seatIndex) => {
+    const seat = seatStates[section][seatIndex];
+    const newSelectedSeats = [...selectedSeats];
+    const seatNo = seat.seatNo;
+    if (seat.isSelected) {
+      // Remove seat if already selected
+      const index = newSelectedSeats.findIndex(
+        (selectedSeat) => selectedSeat[section] === seatNo
+      );
+      if (index !== -1) {
+        newSelectedSeats.splice(index, 1);
+      }
+    } else {
+      // Add seat if not selected
+      newSelectedSeats.push({ [section]: seatNo });
+    }
+    setSelectedSeats(newSelectedSeats);
+    const updatedSeatStates = { ...seatStates };
+    updatedSeatStates[section] = seatStates[section].map((seat, index) => {
+      if (index === seatIndex) {
+        return {
+          ...seat,
+          isSelected: !seat.isSelected,
+        };
+      }
+      return seat;
+    });
+    setSeatStates(updatedSeatStates);
+  };
+
+  // Formatting selected seats for display
+  const selectedSeatStrings = selectedSeats.map((selectedSeat) => {
+    const section = Object.keys(selectedSeat)[0];
+    const seatNo = selectedSeat[section];
+    return `${seatNo}`;
+  });
+
   const resetSeatSelection = () => {
+    const updatedSeatInfos = {};
+    for (const [key, value] of Object.entries(seatStates)) {
+      updatedSeatInfos[key] = value.map((seat) => ({
+        ...seat,
+        isSelected: false,
+      }));
+    }
+    setSeatStates(updatedSeatInfos);
+    setSelectedSeats([]);
     const form = document.getElementById("selectSeats");
     form.reset();
   };
@@ -62,84 +122,30 @@ const SeatLayout = (props) => {
       </div>
       <form id="selectSeats" onSubmit={selectSeats} className="space-y-4">
         <div className="flex gap-10">
-          <aside className="flex flex-col gap-2">
-            <div className="flex gap-1">
-              <div className="grid grid-cols-2 gap-1">
-                <div className="flex flex-col gap-1">
-                  {[...Array(Math.floor(props.noOfSeats / 4))].map((_, i) => (
+          <div className="border p-3 rounded-t-xl">
+            <aside className="flex gap-1 border px-2 py-2">
+              {Object.entries(seatStates).map(([section, seats]) => (
+                <div key={section} className="flex flex-col gap-1 self-end">
+                  {seats.map((seat, index) => (
                     <Seat
-                      key={`${String.fromCharCode(65 + i)}3`}
-                      id={`${String.fromCharCode(65 + i)}3`}
-                      value={`${String.fromCharCode(65 + i)}3`}
-                      label={`${String.fromCharCode(65 + i)}3`}
-                      name={`${String.fromCharCode(65 + i)}3`}
+                      key={seat.seatNo}
+                      id={seat.seatNo}
+                      value={seat.seatNo}
+                      label={seat.seatNo}
+                      name={seat.seatNo}
+                      seat={seat}
+                      onClick={() => onSelect(section, index)}
                     />
                   ))}
                 </div>
-                <div className="flex flex-col gap-1">
-                  {[...Array(Math.floor(props.noOfSeats / 4))].map((_, i) => (
-                    <Seat
-                      key={`${String.fromCharCode(65 + i)}4`}
-                      id={`${String.fromCharCode(65 + i)}4`}
-                      value={`${String.fromCharCode(65 + i)}4`}
-                      label={`${String.fromCharCode(65 + i)}4`}
-                      name={`${String.fromCharCode(65 + i)}4`}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="self-end">
-                <Seat
-                  key={`${String.fromCharCode(
-                    65 + Math.floor(props.noOfSeats / 4 - 1)
-                  )}5`}
-                  id={`${String.fromCharCode(
-                    65 + Math.floor(props.noOfSeats / 4 - 1)
-                  )}5`}
-                  value={`${String.fromCharCode(
-                    65 + Math.floor(props.noOfSeats / 4 - 1)
-                  )}5`}
-                  label={`${String.fromCharCode(
-                    65 + Math.floor(props.noOfSeats / 4 - 1)
-                  )}5`}
-                  name={`${String.fromCharCode(
-                    65 + Math.floor(props.noOfSeats / 4 - 1)
-                  )}5`}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-1">
-                <div className="flex flex-col gap-1">
-                  {[...Array(Math.floor(props.noOfSeats / 4))].map((_, i) => (
-                    <Seat
-                      key={`${String.fromCharCode(65 + i)}2`}
-                      id={`${String.fromCharCode(65 + i)}2`}
-                      value={`${String.fromCharCode(65 + i)}2`}
-                      label={`${String.fromCharCode(65 + i)}2`}
-                      name={`${String.fromCharCode(65 + i)}2`}
-                    />
-                  ))}
-                </div>
-                <div className="flex flex-col gap-1">
-                  {[...Array(Math.floor(props.noOfSeats / 4))].map((_, i) => (
-                    <Seat
-                      key={`${String.fromCharCode(65 + i)}1`}
-                      id={`${String.fromCharCode(65 + i)}1`}
-                      value={`${String.fromCharCode(65 + i)}1`}
-                      label={`${String.fromCharCode(65 + i)}1`}
-                      name={`${String.fromCharCode(65 + i)}1`}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </aside>
+              ))}
+            </aside>
+          </div>
           <aside className="flex flex-col gap-2">
             <div className="font-bold">
-              Selected seats:
+              Selected seats: {selectedSeatStrings.join(", ")}
             </div>
-            <div className="font-bold">
-              Total Fare: 
-            </div>
+            <div className="font-bold">Total Fare: {totalFare}</div>
           </aside>
         </div>
         <Button text="Proceed To Book" type="submit" loading={loading} />
