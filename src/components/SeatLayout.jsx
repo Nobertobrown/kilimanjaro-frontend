@@ -96,6 +96,7 @@ const SeatLayout = (props) => {
       </div>
       <hr />
       <div className="flex gap-2">
+      {/* TODO: Add a processing state */}
         <div className="flex gap-1">
           <div className="p-3 rounded bg-green-500" />
           Available
@@ -132,6 +133,7 @@ const SeatLayout = (props) => {
             </aside>
           </div>
           <aside className="flex flex-col gap-2">
+          {/* TODO: Add a pickup and dropout dropdown*/}
             <div className="font-bold">
               Selected seats: {selectedSeatStrings.join(", ")}
             </div>

@@ -27,16 +27,57 @@ const Payment = () => {
     categories,
   } = location.state;
 
+  function reformatCustomers(seatsData) {
+    const customers = [];
+
+    // Iterate over the seatsData object
+    for (const key in seatsData) {
+      if (Object.hasOwnProperty.call(seatsData, key)) {
+        const seatInfo = key.split("-");
+        const seatNo = seatInfo[0];
+        const field = seatInfo[1];
+        const value = seatsData[key];
+
+        // Find or create customer object based on seatNo
+        let customer = customers.find((cust) => cust.seatNo === seatNo);
+        if (!customer) {
+          customer = {
+            seatNo,
+            name: "",
+            gender: "",
+            age: "",
+            email: "",
+          };
+          customers.push(customer);
+        }
+
+        // Assign the value to the correct field in the customer object
+        if (field === "name") {
+          customer.name = value;
+        } else if (field === "gender") {
+          customer.gender = value;
+        } else if (field === "age") {
+          customer.age = value;
+        } else if (field === "email") {
+          customer.email = value;
+        }
+      }
+    }
+
+    return customers;
+  }
+
   const proceedToPay = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target);
     const formValues = Object.fromEntries(formData.entries());
+    const customersDetails = reformatCustomers(formValues);
 
     const userPaymentData = {
-      routeId:id,
+      routeId: id,
       amount: totalFare,
-      ...formValues,
+      customers: customersDetails,
       busName: busName,
       departureTime: departureTime,
       arrivalTime: arrivalTime,
@@ -111,11 +152,7 @@ const Payment = () => {
         </form>
       </section>
       {isOpen && (
-        <Modal
-          showModal={isOpen}
-          handleClose={closeModal}
-          data={paymentData}
-        />
+        <Modal showModal={isOpen} handleClose={closeModal} data={paymentData} />
       )}
     </article>
   );

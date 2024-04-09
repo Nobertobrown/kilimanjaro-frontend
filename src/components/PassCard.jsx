@@ -39,6 +39,7 @@ const PassCard = ({ seat, num, fare }) => {
           label="Age"
           placeholder="Your age in years"
           className="w-full"
+          min="1"
         />
         <DropDown
           options={genderOptions}

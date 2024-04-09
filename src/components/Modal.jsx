@@ -83,11 +83,22 @@ function Modal({ showModal, handleClose, data }) {
 
       const formData = new FormData(e.target);
       const formValues = Object.fromEntries(formData.entries());
+      const mno = Object.keys(isCardShown)[0];
+      const provider =
+        mno === "Airtel"
+          ? mno
+          : mno === "Azampesa"
+          ? mno
+          : mno === "HaloPesa"
+          ? "Halopesa"
+          : mno === "Tigopesa"
+          ? "Tigo"
+          : "Mpesa";
 
       const userPaymentData = {
         ...data,
         ...formValues,
-        provider: Object.keys(isCardShown)[0],
+        provider: provider,
       };
 
       console.log(userPaymentData);
