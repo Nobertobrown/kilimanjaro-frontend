@@ -28,8 +28,7 @@ const SeatLayout = (props) => {
     e.preventDefault();
 
     const formValues = { seats: selectedSeats }; //[...selectedSeatStrings]
-    const bookingData = { ...props, ...formValues };
-    console.log(formValues);
+    const bookingData = { ...props, totalFare: totalFare, ...formValues };
     navigate("/payment", { state: bookingData });
     setLoading(false);
   };
@@ -113,7 +112,10 @@ const SeatLayout = (props) => {
       <form id="selectSeats" onSubmit={selectSeats} className="space-y-4">
         <div className="flex flex-col min-[498px]:flex-row gap-10">
           <div className="border w-[280px] p-3 rounded-t-xl">
-            <img src="images/steering-wheel.png" className="h-11 ml-auto mb-3" />
+            <img
+              src="images/steering-wheel.png"
+              className="h-11 ml-auto mb-3"
+            />
             <aside className="flex w-64 gap-1 border px-2 py-2">
               {Object.entries(seatStates).map(([section, seats]) => (
                 <div key={section} className="flex flex-col gap-1 self-end">

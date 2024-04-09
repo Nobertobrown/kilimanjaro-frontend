@@ -10,14 +10,20 @@ const Seat = (props) => {
     } else {
       setSource("images/car-seat-b-available.png");
     }
-  }, [seat.isSelected]);
+
+    if (seat.isBooked) {
+      setSource("images/car-seat-b-booked.png");
+    }
+  }, [seat.isBooked, seat.isSelected]);
 
   const handleClick = () => {
-    onClick();
-    if (seat.isSelected) {
-      setSource("images/car-seat-b-available.png");
-    } else {
-      setSource("images/car-seat-b-selected.png");
+    if (seat.isBooked == false) {
+      onClick();
+      if (seat.isSelected) {
+        setSource("images/car-seat-b-available.png");
+      } else {
+        setSource("images/car-seat-b-selected.png");
+      }
     }
   };
 

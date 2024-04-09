@@ -4,7 +4,7 @@ const Input = (props) => {
   const { name, label, icon, type, className, placeholder, ...restProps } =
     props;
   return (
-    <div>
+    <div className={className}>
       <label htmlFor={name} className="mb-1 text-sm font-medium">
         {label}
       </label>

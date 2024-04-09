@@ -201,6 +201,7 @@ const Trips = () => {
                   id={trip._id}
                   seatInfos={trip.seatInfos}
                   tripName={trip.name}
+                  busName={trip.bus.name}
                   origin={trip.origin}
                   destination={trip.destination}
                   amenities={trip.bus.amenities}
