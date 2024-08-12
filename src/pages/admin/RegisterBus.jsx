@@ -41,7 +41,7 @@ const RegisterBus = () => {
 
       if (res && res.bus) {
         toast.success("Bus created successfully!");
-        navigate("/manage-buses");
+        navigate("/admin");
       }
     } catch (error) {
       console.error("API request failed:", error);
@@ -75,7 +75,7 @@ const RegisterBus = () => {
 
             <Input
               name="plate"
-              label="Bus Plate Number"
+              label="Plate Number"
               required
               placeholder="Plate number"
             />

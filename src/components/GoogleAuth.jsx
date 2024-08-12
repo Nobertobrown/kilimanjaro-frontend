@@ -24,7 +24,7 @@ const GoogleAuth = () => {
         type="button"
         text="SignIn with Google"
         className="bg-red-500"
-        onClick={signInWithGoogle}
+        handleClick={signInWithGoogle}
       />
     </div>
   );

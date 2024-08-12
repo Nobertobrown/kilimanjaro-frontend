@@ -90,7 +90,7 @@ const SeatLayout = (props) => {
         <h2 className="w-full">Select seats</h2>
         <Button
           text="Clear Selection"
-          onClick={resetSeatSelection}
+          handleClick={resetSeatSelection}
           className="max-w-max text-xs bg-red-500"
         />
       </div>

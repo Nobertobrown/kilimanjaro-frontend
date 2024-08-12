@@ -16,7 +16,6 @@ const reserveAPI = async ({ method, route, params, data }) => {
   };
 
   const res = await axios(options);
-  // console.log(res.data);
   return res.data;
 };
 export default reserveAPI;

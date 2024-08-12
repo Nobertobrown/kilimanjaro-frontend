@@ -59,6 +59,7 @@ const Card2 = (props) => {
   );
 
   const handleViewSeats = (tripId) => {
+    console.log("am in here")
     if (tripId === id) SetIsSeatVisible((prev) => !prev);
   };
 
@@ -139,7 +140,7 @@ const Card2 = (props) => {
             <h2 className="text-2xl font-semibold text-indigo-600 mb-4">
               {fare}/=
             </h2>
-            <Button text="View Seat" onClick={() => handleViewSeats(id)} />
+            <Button text="View Seat" handleClick={() => handleViewSeats(id)} />
             {/* TODO: Show the number of available seats */}
             <p className="text-xs mt-1 text-blue-500">all taxes included*</p>
           </aside>

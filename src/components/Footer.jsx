@@ -1,5 +1,5 @@
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { FaXTwitter, FaHashnode } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import Logo from "./Logo";
 import { footer } from "../data/data.json";
 
@@ -14,11 +14,11 @@ const social = [
     href: "https://www.linkedin.com/in/norberth-kibona-4429a6217/",
     icon: <FaLinkedin />,
   },
-  {
-    name: "hashnode",
-    href: "https://lokeshkavisth.hashnode.dev/",
-    icon: <FaHashnode />,
-  },
+  // {
+  //   name: "hashnode",
+  //   href: "https://lokeshkavisth.hashnode.dev/",
+  //   icon: <FaHashnode />,
+  // },
   {
     name: "github",
     href: "https://github.com/Nobertobrown",

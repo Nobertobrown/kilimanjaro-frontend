@@ -104,7 +104,7 @@ function Modal({ showModal, handleClose, data }) {
       console.log(userPaymentData);
       const res = await reserveAPI({
         method: "POST",
-        route: "/reservation",
+        route: "/booking",
         data: userPaymentData,
       });
 
@@ -127,7 +127,7 @@ function Modal({ showModal, handleClose, data }) {
       </div>
 
       <h4>Waiting for payment</h4>
-      <div className="border-4 py-4 px-8 text-2xl font-semibold tracking-widest">
+      <div className="w-32 border-4 py-4 px-8 text-2xl font-semibold tracking-widest">
         {countDownMins < 10 ? `0${countDownMins}` : countDownMins}:
         {countDownSecs < 10 ? `0${countDownSecs}` : countDownSecs}
       </div>

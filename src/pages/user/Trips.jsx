@@ -1,11 +1,15 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Card2 from "../../components/ui/Card2";
 import DropDown from "../../components/ui/DropDown";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import Skeleton from "../../components/ui/Skeleton";
 import { LuFilter } from "react-icons/lu";
-import { busAmenities, busCategories, locations as locs } from "../../data/data.json";
+import {
+  busAmenities,
+  busCategories,
+  locations as locs,
+} from "../../data/data.json";
 import { useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
 import { Query } from "../../services/external-api.service";
@@ -105,15 +109,12 @@ const Trips = () => {
     });
   };
 
-  const skeletonProps = useMemo(
-    () => [
-      { height: "6", width: "w-28" },
-      { colSpan: 2 },
-      { colSpan: 2 },
-      { colSpan: 2 },
-    ],
-    []
-  );
+  const skeletonProps = [
+    { height: "6", colSpan: 1 },
+    { colSpan: 2 },
+    { colSpan: 2 },
+    { colSpan: 2 },
+  ];
 
   const toggleFilterMenu = () => {
     const filters = document.getElementById("filters");
@@ -124,7 +125,7 @@ const Trips = () => {
     <>
       <div className="md:hidden fixed top-[70px] z-30">
         <Button
-          onClick={toggleFilterMenu}
+          handleClick={toggleFilterMenu}
           className="flex items-center gap-1 py-1 bg-blue-50 text-black"
           text={
             <>
@@ -184,7 +185,7 @@ const Trips = () => {
                 type="button"
                 text="Clear Selections"
                 className={"bg-red-500"}
-                onClick={resetFilters}
+                handleClick={resetFilters}
               />
             </div>
           </form>
