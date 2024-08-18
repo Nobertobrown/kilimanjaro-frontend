@@ -10,8 +10,8 @@ const ManageRoutes = lazy(() => import("../pages/admin/ManageRoutes"));
 const Trips = lazy(() => import("../pages/user/Trips"));
 const Contact = lazy(() => import("../pages/user/Contact"));
 const Booking = lazy(() => import("../pages/admin/Booking"));
-// const SignUp = lazy(() => import("../pages/SignUp"));
-// const SignIn = lazy(() => import("../pages/SignIn"));
+// const SignUp = lazy(() => import("../pages/auth/SignUp"));
+const SignIn = lazy(() => import("../pages/auth/Login"));
 const Payment = lazy(() => import("../pages/user/Payment"));
 
 const pagesData = [
@@ -35,11 +35,11 @@ const pagesData = [
   //   element: <SignUp />,
   //   id: 4,
   // },
-  // {
-  //   path: "/sign-in",
-  //   element: <SignIn />,
-  //   id: 5,
-  // },
+  {
+    path: "/sign-in",
+    element: <SignIn />,
+    id: 5,
+  },
   {
     path: "/trips",
     element: <Trips />,

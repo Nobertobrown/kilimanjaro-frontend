@@ -6,9 +6,9 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen justify-between">
       <Navbar />
-      <main className="max-w-6xl mx-auto px-2 md:px-4 py-10 md:py-20">
+      <main className="max-w-6xl w-full self-center px-2 md:px-4 py-10 md:py-20">
         <Suspense
           fallback={
             <div className="min-h-[80vh] grid place-items-center w-full text-xl md:text-3xl">
@@ -20,7 +20,7 @@ const App = () => {
         </Suspense>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
