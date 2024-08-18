@@ -120,11 +120,10 @@ const Navbar = () => {
         <div>
           <Logo />
         </div>
-        <MenuToggle toggle={() => toggleOpen()} />
 
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden md:flex items-center">
           <nav>
-            <ul className="flex items-center gap-3">
+            <ul className="flex items-center gap-5">
               {pages.map(({ page, path }) => (
                 <li key={page} className="hover:text-blue-500">
                   <Link to={path}>{page}</Link>
@@ -132,7 +131,9 @@ const Navbar = () => {
               ))}
             </ul>
           </nav>
+        </div>
 
+        <div className="flex gap-4">
           <div>
             <div className="relative">
               <img
@@ -172,7 +173,7 @@ const Navbar = () => {
                       </li>
                     </>
                   )} */}
-                    {/* TODO: Add proper state management to switch signin & out  */}
+                  {/* TODO: Add proper state management to switch signin & out  */}
                   <li className="px-3 py-2">
                     {user.uid !== "" ? (
                       <Button
@@ -193,6 +194,7 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+          <MenuToggle toggle={() => toggleOpen()} />
         </div>
       </motion.section>
       <motion.section
