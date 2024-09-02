@@ -48,7 +48,7 @@ const RegisterRoute = () => {
 
       if (res && res.route) {
         toast.success("Route created successfully!");
-        navigate(`/${busId}/manage-routes`);
+        navigate(`/${busId}/manage`);
       }
     } catch (error) {
       console.error("API request failed:", error);

@@ -39,7 +39,7 @@ const Login = () => {
     try {
       const adminData = await postLoginData({ email, password });
       await localforage.setItem("admin", adminData);
-      if (adminData) navigate("/admin");
+      if (adminData) navigate("/dashboard");
       console.log("Signed In successfully!");
     } catch (error) {
       setUserError(getErrorMessage(error));

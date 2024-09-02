@@ -5,7 +5,7 @@ const Card3 = (props) => {
   const navigate = useNavigate();
 
   const handleClick = ()=>{
-    navigate(`/${busId}/manage-routes`);
+    navigate(`/${busId}/manage`);
   }
 
   return (

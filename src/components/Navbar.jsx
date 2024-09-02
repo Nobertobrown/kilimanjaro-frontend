@@ -23,6 +23,21 @@ const pages = [
   },
 ];
 
+const menuOptions = [
+  {
+    page: "Dashboard",
+    path: "/dashboard",
+  },
+  {
+    page: "Bus Registration",
+    path: "/register",
+  },
+  {
+    page: "Bus Management",
+    path: "/manage",
+  },
+];
+
 const initialUserState = {
   username: "",
   email: "",
@@ -32,7 +47,6 @@ const initialUserState = {
 
 const Navbar = () => {
   const [user, setUser] = useState(initialUserState);
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -66,47 +80,57 @@ const Navbar = () => {
     const getAdminData = async () => {
       const adminData = await localforage.getItem("admin");
       if (adminData) {
-        const currentUser = {
-          username: adminData.username || "",
-          email: adminData.email || "",
-          profile: adminData.photoURL || "",
-          uid: adminData.uid || "",
-        };
-        setUser(currentUser);
+        setUser(adminData);
       }
     };
 
     getAdminData();
   }, []);
 
-  const toggleMenu = (e) => {
-    const menu = e.target.nextElementSibling;
-    e.target.classList.toggle("ring-2");
-    e.target.classList.toggle("ring-blue-500");
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      const profilePhoto = document.getElementById("profile-photo");
+      const menu = document.getElementById("menu");
+
+      if (
+        menu &&
+        !menu.classList.contains("hidden") &&
+        !menu.contains(event.target) &&
+        !profilePhoto.contains(event.target)
+      ) {
+        toggleMenu();
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    const menu = document.getElementById("menu");
+    const profilePhoto = document.getElementById("profile-photo");
+    profilePhoto.classList.toggle("ring-2");
+    profilePhoto.classList.toggle("ring-blue-500");
     menu.classList.toggle("hidden");
   };
 
-  const handleSignIn = async () => {
-    setLoading(true);
-    try {
-      navigate("/sign-in");
-    } catch (error) {
-      console.error("Error navigating:", error);
-    } finally {
-      setLoading(false);
-    }
+  const handleSignIn = () => {
+    navigate("/sign-in");
+    toggleMenu();
   };
 
   const handleSignOut = async () => {
     try {
-      setLoading(true);
       await localforage.clear();
       setUser(initialUserState);
       navigate("/sign-in");
     } catch (error) {
       console.error("Error signing out", error);
     } finally {
-      setLoading(false);
+      toggleMenu();
     }
   };
 
@@ -123,7 +147,7 @@ const Navbar = () => {
 
         <div className="hidden md:flex items-center">
           <nav>
-            <ul className="flex items-center gap-5">
+            <ul className="flex items-center gap-10">
               {pages.map(({ page, path }) => (
                 <li key={page} className="hover:text-blue-500">
                   <Link to={path}>{page}</Link>
@@ -134,64 +158,56 @@ const Navbar = () => {
         </div>
 
         <div className="flex gap-4">
-          <div>
-            <div className="relative">
-              <img
-                onClick={toggleMenu}
-                src={user.profile ? user.profile : fakeAvatar}
-                alt="profile"
-                className="h-8 w-8 rounded-md object-cover object-center"
-              />
-              <div
-                id="menu"
-                className="min-w-max py-2 border bg-white hidden absolute right-0 mt-1 rounded-md z-10"
-              >
-                <ul>
-                  {/* {user.username && (
-                    <h3 className="px-3 pb-2 font-medium border-b capitalize">
-                      Hello, {user.username.split(" ")[0]}
-                    </h3>
-                  )}
+          <div className="relative">
+            <img
+              id="profile-photo"
+              onClick={toggleMenu}
+              src={user.profile ? user.profile : fakeAvatar}
+              alt="profile"
+              className="h-8 w-8 rounded-md object-cover object-center"
+            />
+            <div
+              id="menu"
+              className="min-w-max py-2 border bg-white hidden absolute right-0 mt-1 rounded-md z-10"
+            >
+              <ul>
+                {user.username && (
+                  <h3 className="px-3 pb-2 font-medium border-b capitalize">
+                    Hello, {user.username}
+                  </h3>
+                )}
 
-                  {user.uid && (
-                    <>
-                      <li>
+                {user.uid && (
+                  <>
+                    {menuOptions.map((option, idx) => (
+                      <li key={idx} onClick={toggleMenu}>
                         <Link
-                          to={"/register"}
+                          to={option.path}
                           className="hover:bg-gray-100 px-3 py-2 block"
                         >
-                          Agent Regestration
+                          {option.page}
                         </Link>
                       </li>
-                      <li>
-                        <Link
-                          to={"/manage-buses"}
-                          className="hover:bg-gray-100 px-3 py-2 block"
-                        >
-                          Manage Buses
-                        </Link>
-                      </li>
-                    </>
-                  )} */}
-                  {/* TODO: Add proper state management to switch signin & out  */}
-                  <li className="px-3 py-2">
-                    {user.uid !== "" ? (
-                      <Button
-                        handleClick={handleSignOut}
-                        className="py-2"
-                        text={"Sign-Out"}
-                      />
-                    ) : (
-                      <Button
-                        handleClick={handleSignIn}
-                        loading={loading}
-                        className="py-2"
-                        text="Sign-In"
-                      />
-                    )}
-                  </li>
-                </ul>
-              </div>
+                    ))}
+                  </>
+                )}
+                {/* TODO: Add proper state management to switch signin & out  */}
+                <li className="px-3 py-2">
+                  {user.uid !== "" ? (
+                    <Button
+                      handleClick={handleSignOut}
+                      className="py-2"
+                      text={"Sign-Out"}
+                    />
+                  ) : (
+                    <Button
+                      handleClick={handleSignIn}
+                      className="py-2"
+                      text="Sign-In"
+                    />
+                  )}
+                </li>
+              </ul>
             </div>
           </div>
           <MenuToggle toggle={() => toggleOpen()} />

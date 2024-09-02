@@ -71,7 +71,7 @@ const Dashboard = () => {
           <h2>Bus List</h2>
           <div className="flex gap-3 xl:justify-end">
             <SearchBar />
-            <Button className="basis-1/4" handleClick={()=> navigate("/register-bus")} text="Add Bus" />
+            <Button className="basis-1/4" handleClick={()=> navigate("/register")} text="Add Bus" />
           </div>
         </div>
 

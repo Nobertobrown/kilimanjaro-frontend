@@ -42,7 +42,7 @@ const ManageBuses = () => {
               new buses to view them here.
             </p>
             <div>
-              <Link to={"/register-bus"}>
+              <Link to={"/register"}>
                 <Button
                   text="Register Your Bus"
                   className="max-w-max mx-auto"

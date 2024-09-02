@@ -49,7 +49,7 @@ const ManageRoutes = () => {
               Register new routes to view them here.
             </p>
             <div>
-              <Link to={`/${bus}/register-route`}>
+              <Link to={`/${bus}/register`}>
                 <Button text="Register Route" className="max-w-max mx-auto" />
               </Link>
             </div>

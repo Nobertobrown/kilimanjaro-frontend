@@ -21,7 +21,7 @@ const pagesData = [
     id: 1,
   },
   {
-    path: "/admin",
+    path: "/dashboard",
     element: <Dashboard />,
     id: 2,
   },
@@ -52,25 +52,25 @@ const pagesData = [
     requiresAuth: true,
   },
   {
-    path: "/register-bus",
+    path: "/register",
     element: <RegisterBus />,
     id: 8,
     requiresAuth: true,
   },
   {
-    path: "/manage-buses",
+    path: "/manage",
     element: <ManageBuses />,
     id: 9,
     requiresAuth: true,
   },
   {
-    path: "/:busId/register-route",
+    path: "/:busId/register",
     element: <RegisterRoute />,
     id: 10,
     requiresAuth: true,
   },
   {
-    path: "/:bus/manage-routes",
+    path: "/:bus/manage",
     element: <ManageRoutes />,
     id: 11,
     requiresAuth: true,

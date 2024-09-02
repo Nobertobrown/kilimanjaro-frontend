@@ -41,7 +41,7 @@ const RegisterBus = () => {
 
       if (res && res.bus) {
         toast.success("Bus created successfully!");
-        navigate("/admin");
+        navigate("/dashboard");
       }
     } catch (error) {
       console.error("API request failed:", error);
