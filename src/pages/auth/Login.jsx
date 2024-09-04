@@ -7,11 +7,14 @@ import { useState } from "react";
 import Message from "../../components/ui/Message";
 import localforage from "localforage";
 import reserveAPI from "../../api/api";
+import { useDispatch } from "react-redux";
+import {setCurrentUser} from '../../redux/actions/actions';
 
 const Login = () => {
   const [userError, setUserError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const postLoginData = async (data) => {
     const args = {
@@ -38,6 +41,7 @@ const Login = () => {
     
     try {
       const adminData = await postLoginData({ email, password });
+      dispatch(setCurrentUser(adminData))
       await localforage.setItem("admin", adminData);
       if (adminData) navigate("/dashboard");
       console.log("Signed In successfully!");

@@ -7,6 +7,8 @@ import Button from "./ui/Button";
 import Logo from "./Logo";
 import fakeAvatar from "../assets/fake_user.png";
 import localforage from "localforage";
+import { useSelector, useDispatch } from "react-redux";
+import { setCurrentUser } from "../redux/actions/actions";
 
 const pages = [
   {
@@ -46,7 +48,9 @@ const initialUserState = {
 };
 
 const Navbar = () => {
-  const [user, setUser] = useState(initialUserState);
+  const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => state.reducer);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -80,12 +84,12 @@ const Navbar = () => {
     const getAdminData = async () => {
       const adminData = await localforage.getItem("admin");
       if (adminData) {
-        setUser(adminData);
+        dispatch(setCurrentUser(adminData));
       }
     };
 
     getAdminData();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -117,19 +121,16 @@ const Navbar = () => {
     menu.classList.toggle("hidden");
   };
 
-  const handleSignIn = () => {
-    navigate("/sign-in");
-    toggleMenu();
-  };
-
   const handleSignOut = async () => {
     try {
+      setLoading(true);
       await localforage.clear();
-      setUser(initialUserState);
+      dispatch(setCurrentUser(initialUserState));
       navigate("/sign-in");
     } catch (error) {
       console.error("Error signing out", error);
     } finally {
+      setLoading(false);
       toggleMenu();
     }
   };
@@ -197,11 +198,15 @@ const Navbar = () => {
                     <Button
                       handleClick={handleSignOut}
                       className="py-2"
+                      loading={loading}
                       text={"Sign-Out"}
                     />
                   ) : (
                     <Button
-                      handleClick={handleSignIn}
+                      handleClick={() => {
+                        navigate("/sign-in");
+                        toggleMenu();
+                      }}
                       className="py-2"
                       text="Sign-In"
                     />
