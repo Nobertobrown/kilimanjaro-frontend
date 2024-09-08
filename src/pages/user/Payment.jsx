@@ -2,7 +2,6 @@ import React from "react";
 import Card2 from "../../components/ui/Card2";
 import Button from "../../components/ui/Button";
 import PassCard from "../../components/PassCard";
-import { Toaster } from "react-hot-toast";
 import { useLocation } from "react-router-dom";
 import Modal from "../../components/Modal";
 
@@ -99,9 +98,6 @@ const Payment = () => {
 
   return (
     <article>
-      <div>
-        <Toaster />
-      </div>
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <section className="space-y-2 md:sticky md:top-[75px] h-fit">
           <Card2

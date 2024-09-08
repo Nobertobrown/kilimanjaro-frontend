@@ -64,9 +64,9 @@ const Login = () => {
 
   return (
     <section className="grid place-items-center max-w-xl mx-auto">
-      <div className="w-full border p-4 rounded-md space-y-1">
+      <div className="w-full border p-4 rounded-md space-y-1 shadow-sm bg-white">
         <div className="mb-8">
-          <h2>SignIn</h2>
+          <h2 className="text-xl">Sign In</h2>
           <p>Unlock the smarter way to travel</p>
         </div>
         <form onSubmit={signIn} className="space-y-4">

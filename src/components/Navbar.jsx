@@ -38,6 +38,10 @@ const menuOptions = [
     page: "Bus Management",
     path: "/manage",
   },
+  {
+    page: "Route Registration",
+    path: "/663cf552915ed8d949b3ab28/register",
+  },
 ];
 
 const initialUserState = {

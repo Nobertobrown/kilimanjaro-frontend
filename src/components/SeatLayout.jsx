@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Button from "./ui/Button";
 import Seat from "./ui/Seat";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SeatLayout = (props) => {
   const [loading, setLoading] = useState(false);
@@ -29,6 +30,11 @@ const SeatLayout = (props) => {
 
     const formValues = { seats: selectedSeats }; //[...selectedSeatStrings]
     const bookingData = { ...props, totalFare: totalFare, ...formValues };
+    if (bookingData.seats.length < 1) {
+      setLoading(false);
+      toast.error("Please select a seat to proceed");
+      return;
+    }
     navigate("/payment", { state: bookingData });
     setLoading(false);
   };
@@ -96,7 +102,7 @@ const SeatLayout = (props) => {
       </div>
       <hr />
       <div className="flex gap-2">
-      {/* TODO: Add a processing state */}
+        {/* TODO: Add a processing state */}
         <div className="flex gap-1">
           <div className="p-3 rounded bg-green-500" />
           Available
@@ -112,12 +118,12 @@ const SeatLayout = (props) => {
       </div>
       <form id="selectSeats" onSubmit={selectSeats} className="space-y-4">
         <div className="flex flex-col min-[498px]:flex-row gap-10">
-          <div className="border w-[280px] p-3 rounded-t-xl">
+          <div className="border p-3 rounded-t-xl">
             <img
               src="images/steering-wheel.png"
               className="h-11 ml-auto mb-3"
             />
-            <aside className="flex w-64 gap-1 border px-2 py-2">
+            <aside className="flex min-w-[17rem] justify-between gap-1 border px-2 py-2">
               {Object.entries(seatStates).map(([section, seats]) => (
                 <div key={section} className="flex flex-col gap-1 self-end">
                   {seats.map((seat, index) => (
@@ -133,7 +139,7 @@ const SeatLayout = (props) => {
             </aside>
           </div>
           <aside className="flex flex-col gap-2">
-          {/* TODO: Add a pickup and dropout dropdown*/}
+            {/* TODO: Add a pickup and dropout dropdown*/}
             <div className="font-bold">
               Selected seats: {selectedSeatStrings.join(", ")}
             </div>

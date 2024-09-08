@@ -3,7 +3,7 @@ import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 import DropDown from "../../components/ui/DropDown";
 import reserveAPI from "../../api/api";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import { locations as locs } from "../../data/data.json";
 
@@ -64,9 +64,6 @@ const RegisterRoute = () => {
 
   return (
     <section>
-      <div>
-        <Toaster />
-      </div>
       <div className="text-center mx-auto space-y-8 mb-20">
         <h1>Route Registration Portal</h1>
         <p>
@@ -76,7 +73,10 @@ const RegisterRoute = () => {
       </div>
 
       <div>
-        <form className="space-y-4" onSubmit={register}>
+        <form
+          className="space-y-4 bg-white border p-4 rounded-md shadow-sm"
+          onSubmit={register}
+        >
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Input
               name="name"

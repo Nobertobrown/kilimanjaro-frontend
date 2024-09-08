@@ -4,7 +4,7 @@ import Input from "./ui/Input";
 import Button from "./ui/Button";
 import { Query } from "../services/external-api.service";
 import { useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { locations as locs } from "../data/data.json";
 
@@ -45,10 +45,12 @@ const Hero = () => {
 
       const res = await queryClient.ensureQueryData(Query(args));
 
-      if (res && res.routes) {
+      if (res.success) {
         navigate("/trips", { state: params });
       } else {
-        console.error("Unexpected response format:", res);
+        if(res.error){
+          toast.error(res.error)
+        }
       }
     } catch (error) {
       toast.error(error.response?.data?.error || "API request failed");
@@ -61,7 +63,6 @@ const Hero = () => {
   return (
     <section className="py-20 md:py-40">
       <div>
-        <Toaster />
       </div>
       <div className="space-y-10">
         <div>

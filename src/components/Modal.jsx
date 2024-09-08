@@ -120,14 +120,17 @@ function Modal({ showModal, handleClose, data }) {
   };
 
   return (
-    <dialog className="flex flex-col items-center p-4 rounded-md space-y-4 outline-none">
-      <div className="flex self-stretch gap-20 justify-end items-center">
-        <h2 className="text-3xl">Complete Your Payment</h2>
-        <IoCloseSharp className="text-2xl" onClick={handleClose} />
+    <dialog
+      className="flex flex-col items-center p-4 rounded-t-3xl sm:rounded-md space-y-4 outline-none
+     m-0 sm:m-auto inset-auto sm:inset-0 bottom-0 w-full sm:w-fit max-w-full sm:min-w-[524px]"
+    >
+      <div className="flex self-stretch items-center">
+        <h2 className="text-2xl sm:text-3xl mx-auto">Complete Your Payment</h2>
+        <IoCloseSharp className="text-xl" onClick={handleClose} />
       </div>
 
-      <h4>Waiting for payment</h4>
-      <div className="w-32 border-4 py-4 px-8 text-2xl font-semibold tracking-widest">
+      <h4 className="font-semibold">Waiting for payment</h4>
+      <div className="w-fit border-4 py-4 px-8 text-2xl font-semibold tracking-widest">
         {countDownMins < 10 ? `0${countDownMins}` : countDownMins}:
         {countDownSecs < 10 ? `0${countDownSecs}` : countDownSecs}
       </div>
@@ -135,13 +138,13 @@ function Modal({ showModal, handleClose, data }) {
 
       <h2 className="border-b-2 self-stretch">Pay with</h2>
       <h4 className="self-start">&#x2022; Mobile Money</h4>
-      <form className="space-y-1" onSubmit={handleSubmit}>
-        <div className="flex gap-1">
+      <form className="space-y-1 self-stretch" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-1 w-fit">
           {partners.map((partner) => (
             <div
               key={partner.provider}
               onClick={() => handleClick(partner)}
-              className="rounded p-2 shadow-sm border w-32"
+              className="rounded p-2 shadow-sm border self-stretch max-w-32"
             >
               <img src={partner.logoUrl} alt={partner.partnerName} />
             </div>

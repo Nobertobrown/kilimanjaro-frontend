@@ -123,7 +123,7 @@ const Trips = () => {
 
   return (
     <>
-      <div className="md:hidden fixed top-[70px] z-30">
+      <div className="md:hidden absolute top-[70px] z-30">
         <Button
           handleClick={toggleFilterMenu}
           className="flex items-center gap-1 py-1 bg-blue-50 text-black"

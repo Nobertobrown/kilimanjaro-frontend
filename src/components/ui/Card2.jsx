@@ -59,7 +59,6 @@ const Card2 = (props) => {
   );
 
   const handleViewSeats = (tripId) => {
-    console.log("am in here")
     if (tripId === id) SetIsSeatVisible((prev) => !prev);
   };
 

@@ -8,7 +8,7 @@ import {
   busAmenities as amenityOptions,
   typeOptions,
 } from "../../data/data.json";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const RegisterBus = () => {
@@ -52,9 +52,6 @@ const RegisterBus = () => {
 
   return (
     <section>
-      <div>
-        <Toaster />
-      </div>
       <div className="text-center mx-auto space-y-8 mb-20">
         <h1>Bus Registration Portal</h1>
         <p>
@@ -64,7 +61,7 @@ const RegisterBus = () => {
       </div>
 
       <div>
-        <form className="space-y-4" onSubmit={register}>
+        <form className="space-y-4 bg-white border p-4 rounded-md shadow-sm" onSubmit={register}>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <Input
               name="name"
