@@ -71,7 +71,11 @@ const Dashboard = () => {
           <h2>Bus List</h2>
           <div className="flex gap-3 xl:justify-end">
             <SearchBar />
-            <Button className="basis-1/4" handleClick={()=> navigate("/register")} text="Add Bus" />
+            <Button
+              className="basis-1/4"
+              handleClick={() => navigate("/register")}
+              text="Add Bus"
+            />
           </div>
         </div>
 
@@ -166,6 +170,96 @@ const Dashboard = () => {
           </ul>
         </div>
       </div>
+
+      <div className="col-span-12 card bg-white">
+        <div className="!pb-0 card-body">
+          <div className="flex items-center gap-2 mb-3">
+            <h6 className="text-15 grow">Recent Payroll</h6>
+            <div className="relative dropdown shrink-0">
+              <button
+                type="button"
+                className="flex items-center justify-center w-[30px] h-[30px] p-0 bg-white text-slate-500 btn hover:text-slate-500 hover:bg-slate-100 focus:text-slate-500 focus:bg-slate-100 active:text-slate-500 active:bg-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500/10 dark:focus:bg-slate-500/10 dark:active:bg-slate-500/10 dropdown-toggle"
+                id="userDeviceDropdown"
+                data-bs-toggle="dropdown"
+              >
+                <i
+                  data-lucide="more-vertical"
+                  className="inline-block size-4"
+                ></i>
+              </button>
+
+              <ul
+                className="absolute z-50 hidden py-2 mt-1 ltr:text-left rtl:text-right list-none bg-white rounded-md shadow-md dropdown-menu min-w-[10rem] dark:bg-zink-600"
+                aria-labelledby="userDeviceDropdown"
+              >
+                <li>
+                  <a
+                    className="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 dropdown-item hover:bg-slate-100 hover:text-slate-500 focus:bg-slate-100 focus:text-slate-500 dark:text-zink-100 dark:hover:bg-zink-500 dark:hover:text-zink-200 dark:focus:bg-zink-500 dark:focus:text-zink-200"
+                    href="#!"
+                  >
+                    Today
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 dropdown-item hover:bg-slate-100 hover:text-slate-500 focus:bg-slate-100 focus:text-slate-500 dark:text-zink-100 dark:hover:bg-zink-500 dark:hover:text-zink-200 dark:focus:bg-zink-500 dark:focus:text-zink-200"
+                    href="#!"
+                  >
+                    Yesterday
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="block px-4 py-1.5 text-base transition-all duration-200 ease-linear text-slate-600 dropdown-item hover:bg-slate-100 hover:text-slate-500 focus:bg-slate-100 focus:text-slate-500 dark:text-zink-100 dark:hover:bg-zink-500 dark:hover:text-zink-200 dark:focus:bg-zink-500 dark:focus:text-zink-200"
+                    href="#!"
+                  >
+                    Thursday
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="pb-5">
+          <div data-simplebar className="flex flex-col h-[198px] gap-4 px-5">
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center justify-center text-red-500 rounded-full size-6 shrink-0">
+                  <i data-lucide="move-up-right" className="size-4"></i>
+                </div>
+                <div className="grow">
+                  <h6 className="mb-0">Christopher Horn</h6>
+                </div>
+                <div className="shrink-0">
+                  <h6>$145.32</h6>
+                </div>
+                <div className="w-20 ltr:text-right rtl:text-left shrink-0">
+                  <span className="px-2.5 py-0.5 inline-block text-[11px] font-medium rounded border bg-green-100 border-transparent text-green-500 dark:bg-green-500/20 dark:border-transparent">
+                    Paid
+                  </span>
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="flex items-center justify-center text-green-500 rounded-full size-6 shrink-0">
+                  <i data-lucide="move-down-left" className="size-4"></i>
+                </div>
+                <div className="grow">
+                  <h6 className="mb-0">Richard Peters</h6>
+                </div>
+                <div className="shrink-0">
+                  <h6>$4512.99</h6>
+                </div>
+                <div className="w-20 ltr:text-right rtl:text-left shrink-0">
+                  <span className="px-2.5 py-0.5 inline-block text-[11px] font-medium rounded border bg-yellow-100 border-transparent text-yellow-500 dark:bg-yellow-500/20 dark:border-transparent">
+                    Pending
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };

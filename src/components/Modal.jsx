@@ -35,6 +35,8 @@ function Modal({ showModal, handleClose, data }) {
 
       // Clean up the timer when the component unmounts
       return () => clearInterval(countdownInterval);
+    }else{
+      // Handle timeout
     }
   }, [totalCountDown]);
 

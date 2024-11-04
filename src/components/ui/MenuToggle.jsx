@@ -5,13 +5,13 @@ const Path = (props) => (
     fill="transparent"
     strokeWidth="3"
     stroke="hsl(0, 0%, 18%)"
-    strokeLinecap="round"
+    strokeLinecap="square"
     {...props}
   />
 );
 
 export const MenuToggle = ({ toggle }) => (
-  <button onClick={toggle} className="inline-block md:hidden">
+  <button id="toggleBtn" onClick={toggle} className="inline-block md:hidden">
     <svg width="20" height="20" viewBox="0 0 23 23">
       <Path
         variants={{

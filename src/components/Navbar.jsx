@@ -62,15 +62,20 @@ const Navbar = () => {
   const variants = {
     open: {
       y: 0,
-      transition: { staggerChildren: 0.1, staggerDirection: -1, stiffness: 1 },
+      transition: { 
+        // staggerChildren: 0.1, 
+        // staggerDirection: -1, 
+        stiffness: 1,
+        duration: 0.2
+      },
     },
     closed: {
       y: "-100%",
       transition: {
         duration: 0.3,
-        delay: 0.15,
-        staggerChildren: 0.05,
-        staggerDirection: 1,
+        // delay: 0.15,
+        // staggerChildren: 0.05,
+        // staggerDirection: 1,
       },
     },
   };
@@ -78,9 +83,13 @@ const Navbar = () => {
   const childVariants = {
     open: {
       opacity: 1,
+      transition:{duration: 0.5}
     },
     closed: {
       opacity: 0,
+      transition:{
+        duration: 0.1,
+      }
     },
   };
 
@@ -99,6 +108,7 @@ const Navbar = () => {
     const handleClickOutside = (event) => {
       const profilePhoto = document.getElementById("profile-photo");
       const menu = document.getElementById("menu");
+      const containedInElement = event.target.closest("#toggleBtn") !== null;
 
       if (
         menu &&
@@ -108,6 +118,10 @@ const Navbar = () => {
       ) {
         toggleMenu();
       }
+
+      if (isOpen && !containedInElement) {
+        toggleOpen();
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -115,7 +129,7 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [isOpen, toggleOpen]);
 
   const toggleMenu = () => {
     const menu = document.getElementById("menu");
@@ -219,7 +233,11 @@ const Navbar = () => {
               </ul>
             </div>
           </div>
-          <MenuToggle toggle={() => toggleOpen()} />
+          <MenuToggle
+            toggle={() => {
+              toggleOpen();
+            }}
+          />
         </div>
       </motion.section>
       <motion.section
